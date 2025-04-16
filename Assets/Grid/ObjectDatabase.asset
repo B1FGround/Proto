@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76484abdb24abee46ab455e88739d112, type: 3}
+  m_Name: ObjectDatabase
+  m_EditorClassIdentifier: 
+  objectData:
+  - <Name>k__BackingField: Floor
+    <ID>k__BackingField: 0
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 3706936160302216349, guid: 7358b4c50b460164388c96da66defbbc, type: 3}
+  - <Name>k__BackingField: Inventory
+    <ID>k__BackingField: 1
+    <Size>k__BackingField: {x: 4, y: 1}
+    <Prefab>k__BackingField: {fileID: 6319470913461067974, guid: e8400cb00c0169e4ba194014dd2e50b6, type: 3}
+  - <Name>k__BackingField: Craft
+    <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 4, y: 1}
+    <Prefab>k__BackingField: {fileID: 11000732640186969, guid: 3061d9d5fe233294cbecb4ed13b96379, type: 3}
