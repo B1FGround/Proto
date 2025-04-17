@@ -27,7 +27,7 @@ public class Task : ScriptableObject
     [SerializeField] TaskAction action;
 
     [Header("Target")]
-    [SerializeField] TaskTarget[] targets;
+    [SerializeField] TaskTarget[] targets; // ex) 슬라임 또는 버섯 10마리 잡기같은 퀘스트 일경우 targets필요
 
     [Header("Setting")]
     [SerializeField] InitialSuccessValue initialSuccessValue;
@@ -103,7 +103,7 @@ public class Task : ScriptableObject
         CurrentSuccess = action.Run(this, CurrentSuccess, successCount);
     }
 
-    public bool IsTarget(string category, object target) 
+    public bool IsTarget(string category, object target)
         => Category == category &&
         targets.Any(t => t.IsEqual(target)) &&
         (IsComplete == false || (IsComplete && canReceiveReportsDuringCompletion));

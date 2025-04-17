@@ -54,7 +54,7 @@ public class Quest : ScriptableObject
 
     private int currentTaskGroupIndex;
 
-    public Category Category => category;
+    public Category Category => category; // TODO : 있을 필요 못느끼는중
     public Sprite Icon => icon;
     public string CodeName => codeName;
     public string DisplayName => displayName;
