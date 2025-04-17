@@ -14,6 +14,7 @@ public class Task : ScriptableObject
     #region Events
     public delegate void StateSChangedHandler(Task task, TaskState currentState, TaskState prevState);
     public delegate void SuccessChangedHandler(Task task, int currentSuccess, int prevSuccess);
+    public delegate void SaveQuestHandler();
     #endregion
     [Header("Category")]
     [SerializeField] Category category;
@@ -41,6 +42,7 @@ public class Task : ScriptableObject
     int currentSuccess;
     public event StateSChangedHandler OnStateChanged;
     public event SuccessChangedHandler OnSuccessChanged;
+    public event SaveQuestHandler OnSaveQuest;
 
     public Category Category => category;
     public int CurrentSuccess
@@ -55,6 +57,7 @@ public class Task : ScriptableObject
             {
                 State = currentSuccess == NeedToSuccessToComplete ? TaskState.Complete : TaskState.InProgress;
                 OnSuccessChanged?.Invoke(this, currentSuccess, prevSuccess);
+                OnSaveQuest?.Invoke();
             }
         }
     }
@@ -98,7 +101,6 @@ public class Task : ScriptableObject
     {
         // 모듈식으로 짜게 되면 실행하는 주최 (this)를 넣어주는게 여러모로 편리함
         CurrentSuccess = action.Run(this, CurrentSuccess, successCount);
-
     }
 
     public bool IsTarget(string category, object target) 

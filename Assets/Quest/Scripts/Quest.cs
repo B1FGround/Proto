@@ -46,6 +46,7 @@ public class Quest : ScriptableObject
     [Header("Options")]
     [SerializeField] bool useAutoComplete;
     [SerializeField] bool isCancelable;
+    [SerializeField] bool isSavable;
 
     [Header("Contidions")]
     [SerializeField] Condition[] acceptionConditions;
@@ -69,6 +70,7 @@ public class Quest : ScriptableObject
     public virtual bool IsCancelable => isCancelable;
     public bool IsAcceptable => acceptionConditions.All(x => x.IsPass(this));
     public bool IsCancleable => IsCancelable && cancelCondition.All(x => x.IsPass(this));
+    public virtual bool IsSavable => isSavable;
 
     public event TaskSuccessChangedHandler OnTaskSuccessChanged;
     public event CompleteHandler OnComplete;
@@ -84,7 +86,14 @@ public class Quest : ScriptableObject
         {
             taskGroup.Setup(this);
             foreach (var task in taskGroup.Tasks)
+            {
                 task.OnSuccessChanged += OnSuccessChanged;
+                task.OnSaveQuest += () =>
+                {
+                    QuestManager.Instance.Save();
+                };
+
+            }
         }
         State = QuestState.InProgress;
         CurrentTaskGroup.Start();
@@ -161,6 +170,34 @@ public class Quest : ScriptableObject
     }
 
     private void OnSuccessChanged(Task task, int currentSuccess, int preSuccess) => OnTaskSuccessChanged?.Invoke(this, task, currentSuccess, preSuccess);
+
+    #region Save & Load
+    public QuestSaveData ToSaveData()
+    {
+        return new QuestSaveData(CodeName, State, currentTaskGroupIndex, CurrentTaskGroup.Tasks.Select(x => x.CurrentSuccess).ToArray());
+    }
+    public void LoadFrom(QuestSaveData saveData)
+    {
+        State = saveData.state;
+        currentTaskGroupIndex = saveData.taskGroupIndex;
+
+        // 이전 taskGroup은 모두 완료처리
+        // 저장할때 currentTaskGroupIndex를 저장했고 currentTaskGroupIndex이전 값들은 모두 완료된 의미
+        for (int i = 0; i < currentTaskGroupIndex; ++i)
+        {
+            var taskGroup = taskGroups[i];
+            taskGroup.Start();
+            taskGroup.Complete();
+        }
+
+        // 현재 진행하고 있는 퀘스트의 진행 횟수 로드
+        for(int i = 0; i < saveData.taskSuccessCounts.Length; ++i)
+        {
+            CurrentTaskGroup.Start();
+            CurrentTaskGroup.Tasks[i].CurrentSuccess = saveData.taskSuccessCounts[i];
+        }
+    }
+    #endregion
 
     [Conditional("UNITY_EDITOR")]
     public void CheckIsRunning()
