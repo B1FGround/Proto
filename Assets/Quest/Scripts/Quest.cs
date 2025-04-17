@@ -66,13 +66,13 @@ public class Quest : ScriptableObject
     public bool IsComplete => State == QuestState.Complete;
     public bool IsCancel => State == QuestState.Cancel;
     public IReadOnlyList<Reward> Rewards => rewards;
-    public bool IsCancelable => isCancelable;
+    public virtual bool IsCancelable => isCancelable;
     public bool IsAcceptable => acceptionConditions.All(x => x.IsPass(this));
     public bool IsCancleable => IsCancelable && cancelCondition.All(x => x.IsPass(this));
 
     public event TaskSuccessChangedHandler OnTaskSuccessChanged;
     public event CompleteHandler OnComplete;
-    public event CancelHandler OnCancel;
+    public event CancelHandler OnCanceled;
     public event NewTaskGroupHandler OnNewTaskGroup;
 
 
@@ -91,7 +91,7 @@ public class Quest : ScriptableObject
     }
     public void ReceiveReport(string category, object target, int successCount)
     {
-        Debug.Assert(!IsRegistered, "Already registered quest");
+        Debug.Assert(IsRegistered, "Already registered quest");
         Debug.Assert(!IsCancel, "Already canceled quest");
 
         if (IsComplete)
@@ -136,17 +136,28 @@ public class Quest : ScriptableObject
 
         OnTaskSuccessChanged = null;
         OnComplete = null;
-        OnCancel = null;
+        OnCanceled = null;
         OnNewTaskGroup = null;
     }
-    public void Cancel()
+    public virtual void Cancel()
     {
         CheckIsRunning();
         Debug.Assert(!IsCancelable, "Not cancelable quest");
 
         State = QuestState.Cancel;
-        OnCancel?.Invoke(this);
+        OnCanceled?.Invoke(this);
 
+    }
+
+    public Quest Clone()
+    {
+        var clone = Instantiate(this);
+
+        // 지금은 복사본을 만들때 Task만 복사
+        // 나중에 Task처럼 실시간으로 값이 변경되는 기능이 있다면 TaskGroup(TaskGroup copyTarget)과 같이 복사해줘야함
+        clone.taskGroups = taskGroups.Select(x => new TaskGroup(x)).ToArray();
+
+        return clone;
     }
 
     private void OnSuccessChanged(Task task, int currentSuccess, int preSuccess) => OnTaskSuccessChanged?.Invoke(this, task, currentSuccess, preSuccess);
@@ -154,7 +165,7 @@ public class Quest : ScriptableObject
     [Conditional("UNITY_EDITOR")]
     public void CheckIsRunning()
     {
-        Debug.Assert(!IsRegistered, "Already registered quest");
+        Debug.Assert(IsRegistered, "Already registered quest");
         Debug.Assert(!IsCancel, "Already canceled quest");
         Debug.Assert(!IsComplete, "Already completed quest");
     }
