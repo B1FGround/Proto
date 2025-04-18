@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject craftUI;
     [SerializeField] public GameObject inventoryUI;
     [SerializeField] public GameObject teamUI;
+    [SerializeField] public GameObject questView;
+
 
     private CharacterController cc;
     private GameObject monsters;
@@ -39,6 +41,11 @@ public class PlayerController : MonoBehaviour
         MoveType?.OnAction();
 
         DodgeType?.OnAction();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            questView.SetActive(!questView.activeSelf);
+        }
     }
 
     private List<GameObject> GetClosestMonsters(int count, float detectDistance)
