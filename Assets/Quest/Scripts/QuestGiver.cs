@@ -8,7 +8,7 @@ public class QuestGiver : MonoBehaviour
     {
         foreach (var quest in quests)
         {
-            if (quest.IsAcceptable && QuestManager.Instance.ContainsInCompletedQuests(quest) == false)
+            if (quest.IsAcceptable && QuestManager.Instance.ContainsInCompletedQuests(quest) == false && QuestManager.Instance.ContainsInActiveQuests(quest) == false)
                 QuestManager.Instance.Register(quest);
         }
     }
