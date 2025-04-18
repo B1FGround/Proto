@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381c4002831d08d468ffa4b9d1f537f0, type: 3}
   m_Name: Category_Kill
   m_EditorClassIdentifier: 
-  codeName: 
-  displayName: 
+  codeName: KILL
+  displayName: Kill

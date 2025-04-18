@@ -125,7 +125,7 @@ public class Quest : ScriptableObject
             }
         }
         else
-            State = QuestState.InProgress; // Task의 canReceiveReportsDuringCompletion 옵션 때문에 넣어줌 
+            State = QuestState.InProgress; // ReceiveReport를 받은 뒤  CurrentTaskGroup이 모두 완료 됐다하더라도 Task가 다시 안깨진 상태가 될 수도 있음(ex : 아이템 n개 수집 -> 완료 -> 아이템 버림)
 
 
     }
@@ -170,6 +170,7 @@ public class Quest : ScriptableObject
     }
 
     private void OnSuccessChanged(Task task, int currentSuccess, int preSuccess) => OnTaskSuccessChanged?.Invoke(this, task, currentSuccess, preSuccess);
+
 
     #region Save & Load
     public QuestSaveData ToSaveData()

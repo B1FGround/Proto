@@ -108,5 +108,4 @@ public class Task : ScriptableObject
         targets.Any(t => t.IsEqual(target)) &&
         (IsComplete == false || (IsComplete && canReceiveReportsDuringCompletion));
 
-
 }

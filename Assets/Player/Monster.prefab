@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4993857719911421271}
   - component: {fileID: 7296395873564396246}
+  - component: {fileID: -3751015343794411889}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -45,7 +46,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d67bda3046c134cb50d0fec3fe6272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimumDistance: 1
   player: {fileID: 0}
+  hp: 3
+  arrowRot: {fileID: 0}
+  arrowOut: {fileID: 0}
+  arrowIn: {fileID: 0}
+  OnDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3751015343794411889}
+        m_TargetAssemblyTypeName: QuestReporter, Assembly-CSharp
+        m_MethodName: Report
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  monsterType: 0
+--- !u!114 &-3751015343794411889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768483117553094219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363c9514f63a51e4da1af39a3d00e212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 75559eb3fd6987540b69f9b1b869705d, type: 2}
+  target: {fileID: 11400000, guid: efb70ef52581ec14690cf050dae05a37, type: 2}
+  successCount: 3
+  colliderTags: []
 --- !u!1 &3491004802907972139
 GameObject:
   m_ObjectHideFlags: 0

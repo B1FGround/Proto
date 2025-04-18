@@ -188,8 +188,7 @@ public class QuestManager : Singleton<QuestManager>
 
         QuestCanceled?.Invoke(quest);
 
-        // 다음 프레임에 제거
-        Destroy(quest, Time.deltaTime);
+        DestroyImmediate(quest);
     }
 
     void OnAchievementCompleted(Quest achievement)

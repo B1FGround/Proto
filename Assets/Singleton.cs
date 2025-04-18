@@ -7,7 +7,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if (instance == null)
+            if (!Application.isPlaying && instance == null)
             {
                 instance = (T)FindFirstObjectByType(typeof(T));
                 if (instance == null)
@@ -20,11 +20,19 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    [SerializeField] protected bool dontDestroyOnLoad = true;
+
     protected virtual void Awake()
     {
-        if (transform.parent != null && transform.root != null)
-            DontDestroyOnLoad(transform.root.gameObject);
-        else
-            DontDestroyOnLoad(gameObject);
+        if (instance == null)
+            instance = this as T;
+
+        if (dontDestroyOnLoad)
+        {
+            if (transform.parent != null && transform.root != null)
+                DontDestroyOnLoad(transform.root.gameObject);
+            else
+                DontDestroyOnLoad(gameObject);
+        }
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Category_", menuName = "Quest/Category")]
 public class Category : ScriptableObject, IEquatable<Category>
 {
-    [SerializeField] string codeName;
-    [SerializeField] string displayName;
+    [SerializeField] string codeName = "Default";
+    [SerializeField] string displayName = "Default";
 
     public string CodeName => codeName;
     public string DisplayName => displayName;

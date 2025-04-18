@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Resources;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MonsterController : MonoBehaviour
@@ -28,6 +29,8 @@ public class MonsterController : MonoBehaviour
     public GameObject arrowRot;
     public GameObject arrowOut;
     public GameObject arrowIn;
+
+    public UnityEngine.Events.UnityEvent OnDead;
 
     public enum MonsterType
     {
@@ -98,6 +101,7 @@ public class MonsterController : MonoBehaviour
             var pos = transform.position;
             pos.y += 0.5f;
             Instantiate(Resources.Load("DeadEffect"), pos, Quaternion.identity);
+            OnDead.Invoke();
             Destroy(this.gameObject);
         }
     }
