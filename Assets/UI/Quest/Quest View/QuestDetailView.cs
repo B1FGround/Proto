@@ -61,6 +61,8 @@ public class QuestDetailView : MonoBehaviour
         {
             foreach(var task in taskGroup.Tasks)
             {
+                if (taskIndex > taskDescriptorPoolCount - 1)
+                    break;
                 var poolObject = taskDescriptorPool[taskIndex++];
                 poolObject.gameObject.SetActive(true);
 
