@@ -1,4 +1,3 @@
-using JH.DataBinding;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

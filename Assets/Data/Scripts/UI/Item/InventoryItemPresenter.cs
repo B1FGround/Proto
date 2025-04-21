@@ -1,4 +1,3 @@
-using JH.DataBinding;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
