@@ -32,7 +32,7 @@ public class QuestManager : Singleton<QuestManager>
     public event QuestCompletedHandler AchievementCompleted;
 
     public IReadOnlyList<Quest> ActiveQuests => activeQuests;
-    public IReadOnlyList<Quest> CompletedQuests => activeQuests;
+    public IReadOnlyList<Quest> CompletedQuests => completedQuests;
     public IReadOnlyList<Quest> ActiveAchievements => activeAchievements;
     public IReadOnlyList<Quest> CompletedAchievements => completedAchievements;
 
