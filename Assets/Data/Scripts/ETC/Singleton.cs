@@ -3,19 +3,29 @@ using UnityEngine;
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
+    private static bool applicationIsQuitting = false;
+
     public static T Instance
     {
         get
         {
-            if (!Application.isPlaying && instance == null)
+            if (applicationIsQuitting || !Application.isPlaying)
+                return null;
+
+            if (instance == null)
             {
-                instance = (T)FindFirstObjectByType(typeof(T));
+#if UNITY_2023_1_OR_NEWER
+                instance = FindFirstObjectByType<T>();
+#else
+                instance = FindObjectOfType<T>();
+#endif
                 if (instance == null)
                 {
-                    GameObject singletonObject = new GameObject(typeof(T).Name, typeof(T));
-                    instance = singletonObject.GetComponent<T>();
+                    GameObject singletonGO = new GameObject(typeof(T).Name);
+                    instance = singletonGO.AddComponent<T>();
                 }
             }
+
             return instance;
         }
     }
@@ -25,14 +35,26 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     protected virtual void Awake()
     {
         if (instance == null)
+        {
             instance = this as T;
 
-        if (dontDestroyOnLoad)
-        {
-            if (transform.parent != null && transform.root != null)
-                DontDestroyOnLoad(transform.root.gameObject);
-            else
-                DontDestroyOnLoad(gameObject);
+            if (dontDestroyOnLoad)
+            {
+                if (transform.parent != null && transform.root != null)
+                    DontDestroyOnLoad(transform.root.gameObject);
+                else
+                    DontDestroyOnLoad(gameObject);
+            }
         }
+        else if (instance != this)
+        {
+            Debug.LogWarning($"[Singleton] 중복 인스턴스 제거됨: {gameObject.name}");
+            Destroy(gameObject);
+        }
+    }
+
+    protected virtual void OnApplicationQuit()
+    {
+        applicationIsQuitting = true;
     }
 }
