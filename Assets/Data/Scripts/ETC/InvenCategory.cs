@@ -60,7 +60,7 @@ public class InvenCategory : MonoBehaviour
         {
             var invenItem = Instantiate(Resources.Load("Prefabs/UI/Item")) as GameObject;
             invenItem.GetComponent<ItemView>().SetInfo("", 0, new InventoryItemPresenter());
-            invenItem.transform.SetParent(itemsContainor);
+            invenItem.transform.SetParent(itemsContainor, false);
         }
 
         for (int i = 0; i < itemList.Count; ++i)
@@ -75,7 +75,7 @@ public class InvenCategory : MonoBehaviour
                 if (i == 0)
                 {
                     invenItem.GetComponent<ItemView>().SetInfo(itemName, itemCount, new InventoryItemPresenter());
-                    invenItem.transform.SetParent(itemsContainor);
+                    invenItem.transform.SetParent(itemsContainor, false);
                     invenItem.transform.SetSiblingIndex(i);
                     if (invenItem.GetComponent<ItemView>().GetName().Equals(uiInven.selectedItemName))
                         invenItem.GetComponent<ItemView>().outLine.SetActive(true);

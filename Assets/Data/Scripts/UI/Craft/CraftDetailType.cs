@@ -41,7 +41,7 @@ public class CraftDetailType : MonoBehaviour
         {
             GameObject detailCraftPrefab = Resources.Load<GameObject>("Prefabs/UI/CraftItem");
             var detailCraftObj = Instantiate(detailCraftPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            detailCraftObj.transform.SetParent(itemListTransform);
+            detailCraftObj.transform.SetParent(itemListTransform, false);
             detailCraftObj.GetComponent<CraftableItemView>().SetPresenter(new CraftableItemPresenter(detailCraftObj.GetComponent<CraftableItemView>()));
             detailCraftObj.GetComponent<CraftableItemView>().SetData(itemCategory, itemType, ItemList[(int)itemType][i]);
 
