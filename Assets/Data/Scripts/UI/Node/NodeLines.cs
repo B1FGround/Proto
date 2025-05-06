@@ -34,4 +34,11 @@ public class NodeLines : MonoBehaviour
     {
         return lines.Any(line => line.parent == node && line.child.Selected == true);
     }
+    public bool CheckParentNodeSelected(Node node)
+    {
+        if (node.ParentNodes.Count == 0)
+            return true;
+
+        return lines.Any(line => line.child == node && line.parent.Selected == true);
+    }
 }

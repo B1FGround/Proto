@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject inventoryUI;
     [SerializeField] public GameObject teamUI;
     [SerializeField] public GameObject questView;
+    [SerializeField] public GameObject statUI;
+
 
 
     private CharacterController cc;
@@ -93,5 +95,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OpenStatUI() => statUI.SetActive(true);
+
     public void SceneChange() => SceneController.Instance.SceneChange("Dungeon", transform.position, GetComponent<TeamContainer>().GetCharacters(), sceneChangeBg);
+
 }
