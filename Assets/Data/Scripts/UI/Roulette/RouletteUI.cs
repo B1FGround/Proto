@@ -1,3 +1,4 @@
+using Coffee.UIExtensions;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class RouletteUI : UIView
     private int[] sectionIndices = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
 
     [SerializeField] Button closeButton;
+    [SerializeField] UIParticle[] particle;
+
 
     private void Start()
     {
@@ -48,10 +51,14 @@ public class RouletteUI : UIView
 
         // 정확히 맞춤
         wheel.rotation = Quaternion.Euler(0, 0, startAngle - targetAngle);
+        foreach(var p in particle)
+            p.Play();
     }
     public void SpinWithRandomIndex()
     {
         // 확률의 누적합 계산
+        foreach (var p in particle)
+            p.Stop();
         float totalProbability = 0f;
         foreach (var prob in probabilities)
         {

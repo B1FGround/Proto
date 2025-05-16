@@ -11,7 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public GameObject teamUI;
     [SerializeField] public GameObject questView;
     [SerializeField] public GameObject statUI;
-
+    [SerializeField] public GameObject buildUI;
+    [SerializeField] public GameObject buildSystem;
+    [SerializeField] public GameObject questUI;
 
 
     private CharacterController cc;
@@ -95,7 +97,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void OpenStatUI() => statUI.SetActive(true);
+    public void OpenStatUI() => statUI?.SetActive(true);
+    public void OpenQuestUI() => questUI?.SetActive(!questUI.activeSelf);
+    public void OpenBuildUI()
+    {
+        bool value = !buildUI.activeSelf;
+        buildUI?.SetActive(value);
+        buildSystem?.SetActive(value);
+    }
 
     public void SceneChange() => SceneController.Instance.SceneChange("Dungeon", transform.position, GetComponent<TeamContainer>().GetCharacters(), sceneChangeBg);
 

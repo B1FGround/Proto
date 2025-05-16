@@ -38,7 +38,9 @@ public class NodeLines : MonoBehaviour
     {
         if (node.ParentNodes.Count == 0)
             return true;
+        if (lines.Any(line => line.child == node && line.parent.Selected == false))
+            return false;
 
-        return lines.Any(line => line.child == node && line.parent.Selected == true);
+        return true;
     }
 }

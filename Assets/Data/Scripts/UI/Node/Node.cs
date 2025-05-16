@@ -10,6 +10,7 @@ public class Node : MonoBehaviour
     [SerializeField] List<Node> parentNodes = new List<Node>();
     [SerializeField] NodeLines nodeLines;
     [SerializeField] StatUI statUI;
+    [SerializeField] GameObject selectedEffect;
 
     bool selected = false;
     public bool Selected { get => selected; private set => selected = value; }
@@ -54,6 +55,7 @@ public class Node : MonoBehaviour
                 nodeLines.OnClickNode(selected, selectedParentNodes, this);
 
                 statUI.nodeInfo.SetActive(false);
+                selectedEffect.GetComponent<SelectedNode>().PlayEffect(selected);
             });
         });
     }
