@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    private float maxGameTimer = 20;
+    private float maxGameTimer = 60;
     private float currentGameTimer = 0;
-    private float miniBossTime = 10;
+    private float miniBossTime = 30;
     private bool miniBossSpawned = false;
     private bool bossSpawned = false;
     private Coroutine game;

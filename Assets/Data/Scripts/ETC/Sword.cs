@@ -48,7 +48,7 @@ public class Sword : MonoBehaviour
             if (time > 1f)
             {
                 time = 0f;
-                target.GetComponent<MonsterController>().Damaged(damage);
+                target?.GetComponent<MonsterController>().Damaged(damage);
                 Destroy(this.gameObject);
                 yield break;
             }

@@ -33,8 +33,10 @@ public class PlayerController : MonoBehaviour
         Application.targetFrameRate = 60;
 
         monsters = GameObject.FindWithTag("MonsterContainer");
-        MoveType = new BasicMoveType(cc, transform, 10f, 10f, () => DodgeType.isDodging, GetClosestMonsters);
-        DodgeType = new BasicDodgeType(cc, 0.4f, 15f, () => MoveType.moveDirection);
+        if(MoveType == null)
+            MoveType = new BasicMoveType(cc, transform, 10f, 10f, () => DodgeType.isDodging, GetClosestMonsters);
+        if(DodgeType == null)
+            DodgeType = new BasicDodgeType(cc, 0.4f, 15f, () => MoveType.moveDirection);
     }
 
     private void Update()

@@ -60,7 +60,7 @@ public abstract class MoveTypeBase
 
             if (distanceToTarget >= 8f)
                 moveState = MoveState.Forward;
-            else if (distanceToTarget < 2f)
+            else if (distanceToTarget <= 3f)
                 moveState = MoveState.Backward;
             else if (distanceToTarget > 5 && distanceToTarget < 6)
             {
@@ -139,10 +139,13 @@ public abstract class MoveTypeBase
 
     private void MoveAnimation(bool isMoving)
     {
+        if (characters[0] == null)
+            characters = GameObject.FindWithTag("Player").GetComponent<TeamContainer>().GetCharacters();
+
         foreach (var character in characters)
         {
-            character.GetComponent<Animator>().SetBool("Run", isMoving);
-            character.GetComponent<Animator>().SetBool("RunFinish", !isMoving);
+            character?.GetComponent<Animator>().SetBool("Run", isMoving);
+            character?.GetComponent<Animator>().SetBool("RunFinish", !isMoving);
         }
     }
 

@@ -6,7 +6,7 @@ public class MonsterSpawner : MonoBehaviour
     [SerializeField] private GameObject monsters;
     [SerializeField] private GameObject player;
 
-    private float spawnRate = 5f;
+    private float spawnRate = 2.5f;
     private float curSpawnRate = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

@@ -156,7 +156,7 @@ public class CraftView : UIView
         }
 
         var itemData = craftPresenter.GetItemData();
-        InventoryManager.Instance.AddItem(itemData.ItemName, itemData.ItemCount, itemData.Detail);
+        InventoryManager.Instance.AddItem(itemData.ItemName, int.Parse(craftableCount.text), itemData.Detail);
 
         bool check = true;
         foreach (var key in craftableItem.Keys)
