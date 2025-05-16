@@ -8,6 +8,7 @@ public class Chest : Item, IEquipable
     public Chest(string name, int count) : base(name, count)
     {
         itemModel.Category = ItemCategory.Armor;
+        itemModel.Detail = ItemDetail.Armor;
         Socket = IEquipable.EquipSocket.Armor;
     }
 

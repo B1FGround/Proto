@@ -1,15 +1,15 @@
 using UnityEngine;
 using static CraftData;
 
-public class Bottom : Item, IEquipable
+public class Leg : Item, IEquipable
 {
     public IEquipable.EquipSocket Socket { get; set; }
 
-    public Bottom(string itemName, int itemCount) : base(itemName, itemCount)
+    public Leg(string itemName, int itemCount) : base(itemName, itemCount)
     {
         itemModel.Category = ItemCategory.Armor;
-        itemModel.Detail = ItemDetail.Bottom;
-        Socket = IEquipable.EquipSocket.Bottom;
+        itemModel.Detail = ItemDetail.Leg;
+        Socket = IEquipable.EquipSocket.Leg;
     }
 
     public void OnEquip()

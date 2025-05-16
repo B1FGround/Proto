@@ -27,9 +27,10 @@ public class InventoryModel
     public void Equip(string selectedItemName, TeamManager.CharacterType selectedCharacter)
     {
         var item = InventoryManager.Instance.FindItem(selectedItemName);
+        
         InventoryManager.Instance.Equip(selectedCharacter, item);
         var characters = GameObject.FindWithTag("Player").GetComponent<TeamContainer>().GetCharacters();
         foreach (var character in characters)
-            character.GetComponent<CharacterAttack>().Equip(selectedCharacter);
+            character.GetComponent<CharacterAttack>().Equip(selectedCharacter, item.itemModel.Detail);
     }
 }

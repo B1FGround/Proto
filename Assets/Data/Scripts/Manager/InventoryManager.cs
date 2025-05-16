@@ -23,7 +23,8 @@ public class InventoryManager : Singleton<InventoryManager>
         else
         {
             item = ItemFactory.CreateItem(itemType, itemName, count);
-            Items.Add(item);
+            if(item != null)
+                Items.Add(item);
         }
     }
 

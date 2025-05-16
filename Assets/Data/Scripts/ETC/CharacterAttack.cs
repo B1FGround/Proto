@@ -126,4 +126,39 @@ public class CharacterAttack : MonoBehaviour
             armorObj.transform.localPosition = Vector3.zero;
         }
     }
+    public void Equip(TeamManager.CharacterType selected, CraftData.ItemDetail itemDetail)
+    {
+        if (selected != characterType)
+            return;
+
+        if (InventoryManager.Instance.equipped.ContainsKey(characterType) == false)
+            return;
+
+        var equippedItem = InventoryManager.Instance.equipped[characterType];
+
+        if (itemDetail == CraftData.ItemDetail.Armor)
+        {
+            var armorName = equippedItem[IEquipable.EquipSocket.Armor].itemModel.ItemName.Split()[1];
+
+            var armorObj = Instantiate(Resources.Load("Prefabs/Equip/" + armorName), Vector3.zero, Quaternion.identity, armorSlot.transform) as GameObject;
+            armorObj.transform.localPosition = Vector3.zero;
+        }
+        if (itemDetail == CraftData.ItemDetail.Bottom)
+        {
+            var armorName = equippedItem[IEquipable.EquipSocket.Bottom].itemModel.ItemName.Split()[1];
+
+            var armorObj = Instantiate(Resources.Load("Prefabs/Equip/" + armorName), Vector3.zero, Quaternion.identity, bottomSlot.transform) as GameObject;
+            armorObj.transform.localPosition = Vector3.zero;
+        }
+        if (itemDetail == CraftData.ItemDetail.Leg)
+        {
+            var armorName = equippedItem[IEquipable.EquipSocket.Leg].itemModel.ItemName.Split()[1];
+
+            var armorObj = Instantiate(Resources.Load("Prefabs/Equip/Left" + armorName), Vector3.zero, Quaternion.identity, leftLegSlot.transform) as GameObject;
+            armorObj.transform.localPosition = Vector3.zero;
+
+            armorObj = Instantiate(Resources.Load("Prefabs/Equip/Right" + armorName), Vector3.zero, Quaternion.identity, rightLegSlot.transform) as GameObject;
+            armorObj.transform.localPosition = Vector3.zero;
+        }
+    }
 }

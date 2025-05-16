@@ -17,6 +17,9 @@ public static class ItemFactory
             case ItemDetail.Bottom:
                 return new Bottom(itemName, itemCount);
 
+            case ItemDetail.Leg:
+                return new Leg(itemName, itemCount);
+
             case ItemDetail.Drum:
             case ItemDetail.Stone:
             case ItemDetail.Cube:
